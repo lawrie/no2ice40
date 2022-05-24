@@ -10,8 +10,6 @@
 `default_nettype none
 
 module ice40_serdes_crg #(
-	parameter BEL_CLOCK_1X = "X12/Y0/gb",
-	parameter BEL_CLOCK_2X = "X13/Y0/gb",
 	parameter integer NO_CLOCK_2X = 0
 )(
 	// Input from PLL
@@ -82,7 +80,7 @@ module ice40_serdes_crg #(
 		if (NO_CLOCK_2X)
 			assign clk_2x = 1'b0;
 		else
-			(* BEL=BEL_CLOCK_2X *)
+//			(* BEL="X13/Y0/gb" *)
 			SB_GB gbuf_2x_I (
 				.USER_SIGNAL_TO_GLOBAL_BUFFER(clk_div[0]),
 				.GLOBAL_BUFFER_OUTPUT(clk_2x)
@@ -90,7 +88,7 @@ module ice40_serdes_crg #(
 	endgenerate
 
 	// Buffer clk_1x
-	(* BEL=BEL_CLOCK_1X *)
+	(* BEL="X33/Y16/gb" *)
 	SB_GB gbuf_1x_I (
 		.USER_SIGNAL_TO_GLOBAL_BUFFER(clk_div[1]),
 		.GLOBAL_BUFFER_OUTPUT(clk_1x)
